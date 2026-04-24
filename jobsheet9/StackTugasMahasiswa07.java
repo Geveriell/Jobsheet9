@@ -4,6 +4,7 @@ public class StackTugasMahasiswa07 {
     Mahasiswa07[] stack;
     int size;
     int top;
+
     public StackTugasMahasiswa07(int size) {
         this.size = size;
         stack = new Mahasiswa07[size];
@@ -11,19 +12,11 @@ public class StackTugasMahasiswa07 {
     }
 
     public boolean isFull() {
-        if (top == size - 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return top == size - 1;
     }
 
     public boolean isEmpty() {
-        if (top == -1) {
-            return true;
-        } else {
-            return false;
-        }
+        return top == -1;
     }
 
     public void push(Mahasiswa07 mhs) {
@@ -31,7 +24,7 @@ public class StackTugasMahasiswa07 {
             top++;
             stack[top] = mhs;
         } else {
-            System.out.println("Stack penuh! Tidak bisa menambahkan tugas lagi.");
+            System.out.println("Stack penuh!");
         }
     }
 
@@ -41,7 +34,7 @@ public class StackTugasMahasiswa07 {
             top--;
             return m;
         } else {
-            System.out.println("Stack kosong! Tidak ada tugas untuk dinilai.");
+            System.out.println("Stack kosong!");
             return null;
         }
     }
@@ -50,36 +43,53 @@ public class StackTugasMahasiswa07 {
         if (!isEmpty()) {
             return stack[top];
         } else {
-            System.out.println("Stack kosong! Tidak ada tugas yang dikumpulkan.");
+            System.out.println("Stack kosong!");
             return null;
         }
     }
 
     public void print() {
-        for (int i = 0; i <= top; i++) {
-            System.out.println(
-                    stack[i].nama + "\t" +
-                    stack[i].nim + "\t" +
-                    stack[i].kelas
-            );
+        if (isEmpty()) {
+            System.out.println("Belum ada tugas.");
+        } else {
+            for (int i = top; i >= 0; i--) {
+                System.out.println(
+                        stack[i].nama + " - " +
+                        stack[i].nim + " - " +
+                        stack[i].kelas
+                );
+            }
         }
-        System.out.println("");
     }
+
+    public Mahasiswa07 lihatTugasTerbawah() {
+        if (!isEmpty()) {
+            return stack[0];
+        } else {
+            System.out.println("Stack kosong!");
+            return null;
+        }
+    }
+
+    public int jumlahTugas() {
+        return top + 1;
+    }
+
     public String konversiDesimalKeBiner(int nilai) {
-        StackKonversi07 stack = new StackKonversi07();
+        StackKonversi07 stackBiner = new StackKonversi07();
 
         while (nilai > 0) {
             int sisa = nilai % 2;
-            stack.push(sisa);
+            stackBiner.push(sisa);
             nilai = nilai / 2;
         }
 
-        String biner = "";
+        String hasil = "";
 
-        while (!stack.isEmpty()) {
-            biner += stack.pop();
+        while (!stackBiner.isEmpty()) {
+            hasil += stackBiner.pop();
         }
 
-        return biner;
+        return hasil;
     }
 }
